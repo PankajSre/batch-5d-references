@@ -1,0 +1,269 @@
+Git Files:
+1. Untracked
+2. Tracked
+
+Git Stages:
+----------
+1. Untracked
+    These files are those which does not have previous snapshot
+2. Modified
+   These files have previous snapshot but now they are modified
+3. Staged
+	By using the $git add . command , we can bring the Untracked  or Modified files in the Staged state
+4. Committed
+	By using the $git commit -m "some message" , we can bring the Staged files in the Committed stage.
+	
+1. $git init
+2. $git status
+3. $git add .
+4. $git commit -m "some message"
+5. $ git rm --cached <file-name> To bring the file from Staged state
+	 to either in Modified or Untracked state(Depending upon the previous record of the File)
+6. $git log -> To get the commit History in details. With author name, Commit date/time and Commit Id.
+
+7. $git log --oneline --> To Get the Commit History in Oneline ie. in sort.
+8. To Open the Global config file write the below command:
+
+ $code ~/.gitconfig
+ 
+9. To see the last Commit/Snapshot
+    $git show <commit-Id>/ HEAD
+	
+	To Check the Specific commit:
+	$git show HEAD~<Number from the Head>
+	Like:
+	$git show HEAD~1(To see the Second Last Commit)
+
+	
+10. If you accidentally made some changes in the files, then you can unmodify them by using "git checkout" command. This command is also used to change between the branches as well.
+
+ Let us suppose , we had modified all the three files(index.html,index.css, index.js) then we can unmodify them like below:
+
+  $git checkout index.html
+   By using the above command , i can unmodify the index.html file.
+if you see the git status, you will find only 2 modified files.
+
+To Unmodify all the files in one step, use the below command:
+
+$git checkout * | .(* or .)
+
+11. If you want to go back in the time ie. you want to move any of the previous commit
+    and previous project and files, then also we can use git checkout command.
+	
+	Suppose i want to move to the second commit. then use the below command
+	
+	$git checkout <commit-Id> (commit id can be found by using git log --oneline)
+	
+	And after that if you want to move to the last commit then use the below command:
+	
+	$git checkout master(now we are on the current HEAD)
+	
+	
+	If you make any commit in the back in time , then these changes will no longer be available if you move to the last commit(HEAD) and if you angain move to previous commit then only the commit will not be available.
+	
+    $git checkout <commit-Id>
+	Modify some content, and then
+	$git add .
+	$git commit -m "Test Commit"
+	
+	$git log --oneline(Here We will see the last commit)
+	
+	now:
+	$git checkout master
+	Now we are on the latest commit in the branch and we will not find "Test Commit" here
+	$git log --oneline
+	
+	and if you go Back like
+	$git checkout <commit-Id>
+	
+	and apply
+	$git log --oneline
+	Here also you will not find "Test Commit"
+	
+	So git checkout  is a read only command, it will not be able to modify the files in the back times.
+	
+12. git revert & reset
+===================
+	"git revert" is used to undo the changes in the git commit history. This will take a specific commit, undo the commit and create a "revert commit"
+	
+	$git log --oneline
+	
+	$git revert <commit-Id>
+	By using this command, all changes will be undone at the specific commit.
+	
+	$git log --oneline
+	One additional revert commit is created
+	
+git reset
+---------
+	This is the dangerous command because it permanently removes the changes. 
+	
+	Let us do some more commits.
+	
+	Now lets's run the command
+	$git reset <commit-id>
+	This command will give the below message:
+	
+	Unstaged changes after reset:
+	<the file names>
+	
+	Now to do final undo, use checkout command
+	
+	$git checkout .
+	This will reset all the changes done.
+	
+	
+	git reset uses 3 flags:
+	$git reset --mixed| --soft | --hard
+	
+	
+	If you want to Unstage and delete the changes, the use --hard flag
+	
+	like
+	$git reset --hard <commit-id> ( HEAD will be on this commit)
+	
+	then this command will remove all the commit
+	
+	
+Ignoring files/Folders 
+=======================
+
+
+git branches:
+=============
+	To create a branch in Git, use the below command:
+	$git branch <branch-name>
+	
+	To Check all the branches
+	
+	$git branch
+	
+	To Move to another branch:
+	$git checkout <branch-name>
+	
+	Now if you modify the files, and add to the Staged state and commit it. This commit will be available only in this branch and not in the master branch.
+	Switch to master branch:
+	$git checkout master
+	
+	Now the Changes that we made and the commit also is not available here.
+	
+	
+>>>If you want to create and branch and move to that branch in a single Step use the below command
+
+
+   $git checkout -b branch-2
+
+>>> If you want to delete a Branch, then you can not delete the branch in which you are currently working. But you can delete other branches by using the below command:
+
+    $git branch -D <branch-name> 
+
+     To verify the delete 
+	$git branch
+	
+>>> To add the branch created in git repository to the GitHub, use the below command:
+	$git push origin <branch-name>
+>>> If you created a branch in Github and want to add this branch in Local repository then use the below commands:
+	
+	$git pull origin <new-branch-name>
+	$git checkout --track origin/<new-branch-name>
+	by using the above command , the current branch will be new-branch-name.
+	
+	$git log --oneline
+	
+>>> If you want to delete the Github branch from the Command line use the below command:
+	$git push origin --delete <branch-name>
+	
+	The branch will be deleted from the GtHub.
+	
+	By deleting the branches either from the github or by using command, the btanches will be deleted from the Github, but they will not be deleted from the Local repository.
+	
+	So to delete these branches from the Local repository use the below command:
+	First move to the master branch
+	$git checkout master
+	now delete the branches
+	$git branch -D <branch-name>(all that need to be deleted)
+	
+Git Merge:
+=========
+  This is used to merge the branch with the master/other branch. 
+  $git merge <branch-name>
+  
+  Now if you make changes in any of the branch, it will be visible to others as well. Because the history of the branches will be merged and same.
+  4git log --oneline
+  
+Git Merge Conflict:
+===================
+
+
+
+Git rebase:
+===========
+	Git rebase is used to integrate changes from one branch to another branch.
+	
+	If we made some commits in the master branch and after that we created a branch, then master branch last commit is the base commit for the branch. Now after making some commits in the branch. If we again made a commit in the master branch, then new commit will be base from the branch. ie. we rebase the branch.
+	
+	Let's remove most of the commits that we made. By using the below command:
+	$git reset --hard <commit-id>
+	
+	Then this command will remove all the commits above this commits
+	
+	Remove all the branches and create a new branch
+	$git reset --hard <branch-name> to remove the branch
+	
+	$git branch feature(to create feature branch)
+	
+	Move to feature branch
+	$git checkout feature
+	
+	$git log --oneline
+	Here all the commits are available by master.
+	
+	Make some commits in feature branch:
+	
+	##Commits(2)
+	After making 2 commits in the feature branch. The master branch is 2 commits back with the feature branch. 
+	
+	Lets move to master branch
+	
+	Here no commits available by the feature branch.
+	##Make a Commit in master branch
+	
+	
+	Now Use the git rebase command after moving to the feature branch
+	$git rebase master
+	
+	Now come back to the master branch and use git merge command:
+	$git merge feature
+	
+	After that all the commits made in the feature will be available to the master and feature branches.
+	
+Pull and Merge on Github
+=========================
+
+
+Git Fork and Clone:
+===================
+	
+	
+Contribute to Original repository:
+=================================
+
+Control Access Rights on a repository:
+=====================================
+
+
+	
+	
+	
+  
+  
+	  
+	
+	
+	
+   
+
+
+
+
+
