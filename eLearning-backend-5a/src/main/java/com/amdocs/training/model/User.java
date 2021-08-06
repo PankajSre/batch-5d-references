@@ -1,33 +1,28 @@
 package com.amdocs.training.model;
 
-public class User {
+import java.beans.Transient;
+import java.io.Serializable;
 
+import org.springframework.web.multipart.MultipartFile;
+
+public class User implements Serializable{
 	private Long id;
 	private String username;
 	private String password;
 	private String email;
-	private Long phoneNumber;
-	private Address address; //Has a relationship
+	private String address;
+	private transient MultipartFile image;
 
 	public User() {
+		super();
 	}
 
-	public User(Long id, String username, String password, String email, Long phoneNumber,Address address) {
+	public User(Long id, String username, String password, String email, String address) {
 		super();
 		this.id = id;
 		this.username = username;
 		this.password = password;
 		this.email = email;
-		this.phoneNumber = phoneNumber;
-		this.address = address;
-	}
-	
-	
-
-	public User(Long id, String username, Address address) {
-		super();
-		this.id = id;
-		this.username = username;
 		this.address = address;
 	}
 
@@ -63,29 +58,24 @@ public class User {
 		this.email = email;
 	}
 
-	public Long getPhoneNumber() {
-		return phoneNumber;
-	}
-
-	public void setPhoneNumber(Long phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
-
-	
-	public Address getAddress() {
+	public String getAddress() {
 		return address;
 	}
 
-	public void setAddress(Address address) {
+	public void setAddress(String address) {
 		this.address = address;
+	}
+	public MultipartFile getImage() {
+		return image;
+	}
+
+	public void setImage(MultipartFile image) {
+		this.image = image;
 	}
 
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", username=" + username + ", password=" + password + ", email=" + email
-				+ ", phoneNumber=" + phoneNumber + ", address=" + address + "]";
+				+ ", address=" + address + "]";
 	}
-
-	
-
 }

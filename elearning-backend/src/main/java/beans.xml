@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+   
+   <bean id="addr1" class="com.amdocs.training.model.Address">
+		<constructor-arg name="houseNumber" value="B/12" />
+		<constructor-arg name="street" value="Street Number 6" />
+		<constructor-arg name="city" value="New Delhi" />
+		<constructor-arg name="state" value="New Delhi" />
+		<constructor-arg name="pin" value="110092" />
+		<constructor-arg name="country" value="India" />
+
+	</bean>
+
+	<bean id="user1" class="com.amdocs.training.model.User">
+		<constructor-arg name="id" value="30001" />
+		<constructor-arg name="username" value="user" />
+		<constructor-arg name="password" value="user123" />
+		<constructor-arg name="email" value="user@gmail.com" />
+		<constructor-arg name="phoneNumber" value="9090909090" />
+		<constructor-arg name="address" ref="addr1" />
+	</bean>
+	
+	<bean id="user2" class="com.amdocs.training.model.User">
+		<constructor-arg name="id" value="50001" />
+		<constructor-arg name="username" value="dba" />
+		<constructor-arg name="address" ref="addr1" />
+	</bean>
+
+</beans>
